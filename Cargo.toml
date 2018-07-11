@@ -1,0 +1,10 @@
+[package]
+name = "kore"
+version = "0.1.0"
+authors = ["luzzif <federico.luzzi@mondora.com>"]
+
+[dependencies]
+volatile = "0.2.3"
+
+[package.metadata.bootimage]
+default-target = "target.json"

@@ -6,7 +6,7 @@ Kore is a minimal kernel written in Rust.
 
 In order to startup the kernel, be sure to have Rust installed
 (you can find the instructions [here](https://www.rust-lang.org/en-US/install.html)).
-The next step is intalling the `bootimage` crate. Since the kernel is in a super-early
+The next step is installing the `bootimage` crate. Since the kernel is in a super-early
 development stage, it is currently not multiboot compliant. This tool simply ensures
 that a bootloader gets appended to the kernel image when compiling with it.
 The last step is installing `QEMU` (you can find the instructions

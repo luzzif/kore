@@ -10,12 +10,13 @@ extern crate volatile;
 
 mod vga;
 
+use core::fmt::Write;
 use vga::writer::VGA_WRITER;
 
 #[cfg(not(test))]
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
-    VGA_WRITER.lock().write("Hello world!\n");
+    write!(VGA_WRITER.lock(), "Hello world!");
     loop {}
 }
 
@@ -24,6 +25,7 @@ use core::panic::PanicInfo;
 #[cfg(not(test))]
 #[panic_handler]
 #[no_mangle]
-pub fn panic(_info: &PanicInfo) -> ! {
+pub fn panic(info: &PanicInfo) -> ! {
+    write!(VGA_WRITER.lock(), "{}", info).unwrap();
     loop {}
 }

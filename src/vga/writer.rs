@@ -2,6 +2,7 @@ use super::buffer_manager::VgaBufferManager;
 use super::character::VgaCharacter;
 use super::color::Color;
 use core::fmt;
+use core::fmt::Write;
 use spin::Mutex;
 
 pub struct VgaWriter {
@@ -26,19 +27,9 @@ impl VgaWriter {
             self.background,
         ));
     }
-
-    pub fn write(&mut self, string: &str) {
-        for &character in string.as_bytes() {
-            self.buffer_manager.write_character(VgaCharacter::new(
-                character as char,
-                self.foreground,
-                self.background,
-            ));
-        }
-    }
 }
 
-impl fmt::Write for VgaWriter {
+impl Write for VgaWriter {
     fn write_str(&mut self, string: &str) -> fmt::Result {
         for character in string.chars() {
             self.write_character(character);

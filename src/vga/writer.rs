@@ -1,6 +1,8 @@
 use super::buffer_manager::VgaBufferManager;
 use super::character::VgaCharacter;
 use super::color::Color;
+use core::fmt;
+use spin::Mutex;
 
 pub struct VgaWriter {
     foreground: Color,
@@ -34,4 +36,17 @@ impl VgaWriter {
             ));
         }
     }
+}
+
+impl fmt::Write for VgaWriter {
+    fn write_str(&mut self, string: &str) -> fmt::Result {
+        for character in string.chars() {
+            self.write_character(character);
+        }
+        Ok(())
+    }
+}
+
+lazy_static! {
+    pub static ref VGA_WRITER: Mutex<VgaWriter> = Mutex::new(VgaWriter::new());
 }
